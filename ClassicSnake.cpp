@@ -37,20 +37,26 @@ public:
     bool die();
 };
 
-void gotoxy(int, int);
-void scoreDisplay(int);
-void drawFrame();
-void play();
+class Game {
+public:
+    static void gotoxy(int, int);
+    void scoreDisplay(int);
+    void drawFrame();
+    void play();
+};
+
+
 
 int main() {
-    play();
+    Game game;
+    game.play();
 
     getch();
     system("cls");
     return 0;
 }
 
-void play() {
+void Game::play() {
     Snake snake;
     Point food;
     int score = 0;
@@ -86,7 +92,7 @@ void play() {
 }
 
 void Point::draw() {
-    gotoxy(x, y);
+    Game::gotoxy(x, y);
     cout << shape;
 }
 
@@ -123,7 +129,7 @@ void Snake::draw() {
 
 void Snake::move() {
     for (int i = 0; i < length; i++) {
-    	gotoxy(body[i].x, body[i].y);
+    	Game::gotoxy(body[i].x, body[i].y);
     	cout << ' ';
     }
 
@@ -171,7 +177,7 @@ bool Snake::die() {
 	return false;
 }
 
-void drawFrame(){
+void Game::drawFrame(){
     cout << (char)(218);
     for (int i = 0; i < WIDTH; i++) cout << (char)(196);
     cout << (char)(191);
@@ -188,12 +194,12 @@ void drawFrame(){
 
 }
 
-void scoreDisplay(int score) {
+void Game::scoreDisplay(int score) {
 	gotoxy(WIDTH + 3, 1);
 	cout << "Score: " << score << "   ";
 }
 
-void gotoxy(int x, int y){
+void Game::gotoxy(int x, int y){
   static HANDLE h = NULL;  
   if(!h)
     h = GetStdHandle(STD_OUTPUT_HANDLE);
